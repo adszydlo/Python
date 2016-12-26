@@ -85,6 +85,20 @@ a {
   text-transform: uppercase;
 }
 
+.sign {
+  background: #ffffff;
+  color: #000000;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.23px;
+  padding: 0px 12px 0px 12px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  float: right;
+}
+
 
 
 /*
@@ -95,6 +109,8 @@ header {
   background-color: #fff;
   padding: 25px 0;
 }
+
+
 
 .title {
   float: left;
@@ -141,7 +157,7 @@ header {
 }
 
 .hero-section .section-content h2 {
-  font-size: 40px;
+  font-size: 30px;
 }
 
 .hero-section .section-content .btn-primary {
