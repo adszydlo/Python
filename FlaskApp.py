@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from Models import db, User, Place
 from Forms import SignupForm, LoginForm, AddressForm
 
+import requests
+import json
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/flaskapp'
@@ -78,7 +81,15 @@ def home():
   form = AddressForm()
 
   places = []
-  my_coordinates = (37.3456, -123.0987)
+
+  #pobranie aktualnej lokalizacji urzadzenia na podstawie IP
+  send_url = 'http://freegeoip.net/json'
+  r = requests.get(send_url)
+  j = json.loads(r.text)
+  lat = j['latitude']
+  lng = j['longitude']
+  #my_coordinates = (50.288706,18.6750773)
+  my_coordinates = (lat, lng)
 
   if request.method == "POST":
       if form.validate() == False:
@@ -97,6 +108,8 @@ def home():
 
 
   elif request.method == 'GET':
+      p = Place()
+      places = p.query(lat, lng)
       return render_template('home.html', form=form, my_coordinates=my_coordinates, places=places)
 
 

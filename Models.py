@@ -73,3 +73,34 @@ class Place(object):
             places.append(d)
 
         return places
+
+    def query(self, lat, lng):
+        query_url = 'https://pl.wikipedia.org/w/api.php?action=query&list=geosearch&gsradius=5000&gscoord={0}%7C{1}&gslimit=20&format=json'.format(
+            lat, lng)
+        g = urlopen(query_url)
+        results = g.read().decode('utf8')
+        g.close()
+
+        data = json.loads(results)
+
+        places = []
+        for place in data['query']['geosearch']:
+            name = place['title']
+            meters = place['dist']
+            lat = place['lat']
+            lng = place['lon']
+
+            wiki_url = self.wiki_path(name)
+            walking_time = self.meters_to_walking_time(meters)
+
+            d = {
+                'name': name,
+                'url': wiki_url,
+                'time': walking_time,
+                'lat': lat,
+                'lng': lng
+            }
+
+            places.append(d)
+
+        return places
