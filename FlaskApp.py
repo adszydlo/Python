@@ -101,7 +101,7 @@ def home():
           # miejsca w okolicy adresu (z GeoDataAPI)
           p = Place()
           my_coordinates = p.address_to_latlng(address)
-          places = p.query(address)
+          places = p.queryAddress(address)
 
           # przesłanie wyników
           return render_template('home.html', form=form, my_coordinates=my_coordinates, places=places)

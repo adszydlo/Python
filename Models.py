@@ -41,7 +41,7 @@ class Place(object):
         g = geocoder.google(address)
         return (g.lat, g.lng)
 
-    def query(self, address):
+    def queryAddress(self, address):
         lat, lng = self.address_to_latlng(address)
 
         query_url = 'https://pl.wikipedia.org/w/api.php?action=query&list=geosearch&gsradius=5000&gscoord={0}%7C{1}&gslimit=20&format=json'.format(
